@@ -1,3 +1,5 @@
+#rom mlpmodels import ...
+
 def get_r_hat(A, B): 
     """
         A: 1440-by-10 dataframe of log prices with columns log_pr_0, ... , log_pr_9
