@@ -1,5 +1,4 @@
 import pickle
-from tokenize import group
 import numpy as np
 import pandas as pd
 
@@ -46,6 +45,7 @@ def get_feature_test(log_pr, volu, grp_idx=None):
             df_dict[key] = wide_format_test(features.loc[idx_lis])
         return df_dict
 
+
 def get_r_hat(A, B): 
     """
         A: 1440-by-10 dataframe of log prices with columns log_pr_0, ... , log_pr_9
@@ -53,11 +53,11 @@ def get_r_hat(A, B):
         return: a numpy array of length 10, corresponding to the predictions for the forward 30-minutes returns of assets 0, 1, 2, ..., 9
     """
     grp_idx = {0:[1,5,6,8], 1:[0,2,3,4,7,9]}
-    x = get_feature_test(A, B,grp_idx=grp_idx)
-    # y1 = ridge_model1.predict(x[0]) # numpy (4,)
-    # y2 = ridge_model2.predict(x[1]) # numpy (4,)
+    x = get_feature_test(A, B, grp_idx=grp_idx)
     pred_dict = {i: model.predict(x[i]) for i, model in model_dict.items()}
+    
     out = np.zeros(10)
     for keys, idx in grp_idx.items():
         out[idx] = pred_dict.get(keys)
+
     return out
