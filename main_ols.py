@@ -54,7 +54,6 @@ def get_feature_test(log_pr, volu, grp_idx=None):
         return df_dict
 
 
-
 def get_r_hat(A, B): 
     """
         A: 1440-by-10 dataframe of log prices with columns log_pr_0, ... , log_pr_9
