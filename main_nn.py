@@ -3,9 +3,11 @@ from tokenize import group
 import numpy as np
 import pandas as pd
 
-ridge_model1 = pickle.load(open('../model/ridge.pkl', 'rb'))
-ridge_model2 = pickle.load(open('../model/ridge.pkl', 'rb'))
-model_dict = {0:ridge_model1,1:ridge_model2}
+
+model_dict = {i: pickle.load(open('../model/ridge{}.sav'.format(i), 'rb')) for i in range(2)}
+
+# ridge_model1 = pickle.load(open('../model/ridge1.pkl', 'rb'))
+# ridge_model2 = pickle.load(open('../model/ridge2.pkl', 'rb'))
 
 def wide_format_test(df):
     df_= df.reset_index()
@@ -44,6 +46,7 @@ def get_feature_test(log_pr, volu, grp_idx=None):
             df_dict[key] = wide_format_test(features.loc[idx_lis])
         return df_dict
 
+
 def get_r_hat(A, B): 
     """
         A: 1440-by-10 dataframe of log prices with columns log_pr_0, ... , log_pr_9
@@ -52,10 +55,10 @@ def get_r_hat(A, B):
     """
     grp_idx = {0:[1,5,6,8], 1:[0,2,3,4,7,9]}
     x = get_feature_test(A, B, grp_idx=grp_idx)
-    y1 = ridge_model1.predict(x[0]) # numpy (4,)
-    y2 = ridge_model2.predict(x[1]) # numpy (4,)
     pred_dict = {i: model.predict(x[i]) for i, model in model_dict.items()}
+    
     out = np.zeros(10)
     for keys, idx in grp_idx.items():
         out[idx] = pred_dict.get(keys)
+
     return out
