@@ -13,12 +13,14 @@ with open("models.pckl", "rb") as f:
             break
 model_dict = {i: models[i] for i in range(len(models))}
 
+
 def wide_format_test(df):
     df_= df.reset_index()
     df_ = df_.pivot(columns ='index').apply(lambda s: s.dropna().reset_index(drop=True))
     df_.columns = df_.columns.get_level_values(0) + '_' +  [str(x) for x in df_.columns.get_level_values(1)]
 
     return df_
+
 
 def get_feature_test(log_pr, volu, grp_idx=None):
     """
@@ -49,6 +51,7 @@ def get_feature_test(log_pr, volu, grp_idx=None):
         for key, idx_lis in grp_idx.items():
             df_dict[key] = wide_format_test(features.loc[idx_lis])
         return df_dict
+
 
 
 def get_r_hat(A, B): 
