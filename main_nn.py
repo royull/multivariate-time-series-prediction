@@ -1,4 +1,7 @@
-#rom mlpmodels import ...
+import pickle
+ridge_model = pickle.load(open('../model/ridge.pkl', 'rb'))
+lasso_model = ...
+
 
 def get_r_hat(A, B): 
     """
