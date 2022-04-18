@@ -51,7 +51,7 @@ def get_r_hat(A, B):
         return: a numpy array of length 10, corresponding to the predictions for the forward 30-minutes returns of assets 0, 1, 2, ..., 9
     """
     grp_idx = {0:[1,5,6,8], 1:[0,2,3,4,7,9]}
-    x = get_feature_test(A, B,grp_idx=grp_idx)
+    x = get_feature_test(A, B, grp_idx=grp_idx)
     y1 = ridge_model1.predict(x[0]) # numpy (4,)
     y2 = ridge_model2.predict(x[1]) # numpy (4,)
     pred_dict = {i: model.predict(x[i]) for i, model in model_dict.items()}
