@@ -1,11 +1,10 @@
 import pickle
-from tokenize import group
 import numpy as np
 import pandas as pd
+from sklearn.linear_model import Ridge
 
 
-model_dict = {i: pickle.load(open('../model/ridge{}.sav'.format(i), 'rb')) for i in range(2)}
-
+model_dict = {i: pickle.load(open('ridge{}.sav'.format(i), 'rb')) for i in range(2)}
 
 def wide_format_test(df):
     df_= df.reset_index()
