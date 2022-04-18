@@ -50,6 +50,7 @@ def get_feature_test(log_pr, volu, grp_idx=None):
         df_dict = {}
         for key, idx_lis in grp_idx.items():
             df_dict[key] = wide_format_test(features.loc[idx_lis])
+            df_dict[key] = df_dict[key][features_dict[key]]
         return df_dict
 
 
