@@ -4,7 +4,14 @@ import pandas as pd
 from sklearn.linear_model import Ridge
 
 
-model_dict = {i: pickle.load(open('ridge{}.sav'.format(i), 'rb')) for i in range(2)}
+models = []
+with open("models.pckl", "rb") as f:
+    while True:
+        try:
+            models.append(pickle.load(f))
+        except EOFError:
+            break
+model_dict = {i: models[i] for i in range(len(models))}
 
 def wide_format_test(df):
     df_= df.reset_index()
