@@ -1,5 +1,6 @@
 import pandas as pd
 import statsmodels.api as sm
+import itertools as it
 
 def forward_regression(X, y):
     '''
